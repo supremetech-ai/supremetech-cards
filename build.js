@@ -61,16 +61,46 @@ function getInitialsPlaceholder(profile, business) {
 function generateCardPage(cardData) {
   const { card, profile, business } = cardData;
 
-  const displayName = profile?.first_name && profile?.last_name
-    ? `${profile.first_name} ${profile.last_name}`
-    : profile?.first_name || profile?.last_name || 'Digital Card';
-
-  const title = card.og_title || `${displayName} - ${business?.name || 'Digital Card'}`;
-  const description =
-    card.og_description ||
-    card.custom_bio ||
-    profile?.job_title ||
-    `Contact ${displayName}`;
+  // Build display name - no "Digital Card" fallback, use actual data only
+  const displayName = [profile?.first_name, profile?.last_name].filter(Boolean).join(' ') || '';
+  
+  // Title: Use card's custom og_title first, then smart fallbacks from actual data
+  // Priority: og_title > "Name - Job Title" > "Name at Company" > "Name" > Company name only
+  let title = card.og_title;
+  if (!title) {
+    if (displayName && profile?.job_title) {
+      title = `${displayName} - ${profile.job_title}`;
+    } else if (displayName && business?.name) {
+      title = `${displayName} at ${business.name}`;
+    } else if (displayName) {
+      title = displayName;
+    } else if (business?.name) {
+      title = business.name;
+    } else {
+      title = 'Contact Card'; // Last resort - minimal, not "Digital Card"
+    }
+  }
+  
+  // Description: Use card's custom og_description, then smart fallbacks
+  // Priority: og_description > custom_bio > "Name, Job Title at Company" > "Connect with Name" > Company tagline
+  let description = card.og_description;
+  if (!description) {
+    if (card.custom_bio) {
+      description = card.custom_bio;
+    } else if (displayName && profile?.job_title && business?.name) {
+      description = `${displayName}, ${profile.job_title} at ${business.name}`;
+    } else if (displayName && profile?.job_title) {
+      description = `${displayName}, ${profile.job_title}`;
+    } else if (displayName && business?.name) {
+      description = `Connect with ${displayName} at ${business.name}`;
+    } else if (displayName) {
+      description = `Connect with ${displayName}`;
+    } else if (business?.name) {
+      description = `Contact card for ${business.name}`;
+    } else {
+      description = 'View contact information';
+    }
+  }
 
   // OG Image fallback chain:
   // 1. Card's custom OG image (explicitly set by user)
@@ -134,12 +164,22 @@ function generateCardPage(cardData) {
       width:100%;
       height:100%;
       background:#f5f5f5;
+    }
+    body{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
       overflow:hidden;
     }
     .card-frame{
-      width:100%;
-      height:100%;
+      width:min(430px, calc(100vw - 48px));
+      height:min(932px, calc(100vh - 48px));
+      aspect-ratio:430 / 932;
+      border-radius:24px;
       overflow:hidden;
+      background:#fff;
+      box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);
     }
     iframe{
       width:100%;
@@ -147,13 +187,23 @@ function generateCardPage(cardData) {
       border:none;
       display:block;
     }
+    @media(max-width:460px){
+      body{padding:0;}
+      .card-frame{
+        width:100%;
+        height:100%;
+        aspect-ratio:auto;
+        border-radius:0;
+        box-shadow:none;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="card-frame">
     <iframe
       src="${liveCardUrl}"
-      title="${escapeHtml(displayName)}'s Digital Card"
+      title="${escapeHtml(title)}"
       allow="clipboard-write"
       loading="eager"
     ></iframe>
