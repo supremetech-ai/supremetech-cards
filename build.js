@@ -41,6 +41,23 @@ function escapeHtml(str) {
  * Generate the wrapper HTML page for a card
  * Just OG meta tags + iframe to the live card
  */
+/**
+ * Generate initials-based placeholder image URL for fallback
+ * Uses a simple placeholder service with background color from business
+ */
+function getInitialsPlaceholder(profile, business) {
+  const initials = [
+    (profile?.first_name || '')[0] || '',
+    (profile?.last_name || '')[0] || ''
+  ].join('').toUpperCase() || 'U';
+  
+  // Use business primary color or default blue
+  const bgColor = (business?.primary_color || '#3b82f6').replace('#', '');
+  
+  // Use ui-avatars.com for a simple initials-based image
+  return `https://ui-avatars.com/api/?name=${encodeURIComponent(initials)}&background=${bgColor}&color=fff&size=630&bold=true&length=2`;
+}
+
 function generateCardPage(cardData) {
   const { card, profile, business } = cardData;
 
@@ -55,7 +72,21 @@ function generateCardPage(cardData) {
     profile?.job_title ||
     `Contact ${displayName}`;
 
-  const ogImage = card.og_image_url || business?.logo_url || `${APP_URL}/og-free-card.png`;
+  // OG Image fallback chain:
+  // 1. Card's custom OG image (explicitly set by user)
+  // 2. Card's custom profile photo (from custom_fields)
+  // 3. User's avatar (from profile)
+  // 4. Business logo (full or standard)
+  // 5. Initials-based placeholder with business color
+  const customFields = card.custom_fields || {};
+  const ogImage = 
+    card.og_image_url || 
+    customFields.profile_photo_url ||
+    profile?.avatar_url || 
+    business?.logo_full_url ||
+    business?.logo_url || 
+    getInitialsPlaceholder(profile, business);
+    
   const favicon = business?.logo_icon_url || business?.logo_url || `${APP_URL}/favicon.ico`;
 
   // The live card URL in the main app (for iframe)
