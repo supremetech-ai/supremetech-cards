@@ -181,9 +181,10 @@ function generateCardPage(cardData) {
       position: absolute;
       inset: 25px 0 0 0;          /* top 25px, left/right/bottom 0 */
       margin: 0 auto;             /* centers horizontally */
-      max-width: 520px;           /* ← important: limit max width */
+      max-width: 360px;           /* ← important: limit max width */
       width: 100%;
       height: calc(100% - 25px);  /* leave space for top padding */
+      background: transparent !important;
     }
   </style>
 </head>
