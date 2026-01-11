@@ -238,7 +238,7 @@ function generate404Page() {
   <div class="container">
     <h1>Card Not Found</h1>
     <p>This digital card doesn't exist or has been removed.</p>
-    <a href="${APP_URL}">Create your own card →</a>
+    <a href="https://startnow.supremetech.contact/startnow?plan=free_card">Create your own card →</a>
   </div>
 </body>
 </html>`;
