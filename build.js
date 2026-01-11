@@ -134,24 +134,18 @@ function generateCardPage(cardData) {
       width:100%;
       height:100%;
       background:#f5f5f5;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
+      overflow:hidden;
     }
     .card-frame{
       width:100%;
-      max-width:430px;
       height:100%;
-      max-height:932px;
-      border-radius:24px;
       overflow:hidden;
-      box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);
     }
-    iframe{width:100%;height:100%;border:none;}
-    @media(max-width:460px){
-      html,body{padding:0;}
-      .card-frame{max-width:100%;max-height:100%;border-radius:0;box-shadow:none;}
+    iframe{
+      width:100%;
+      height:100%;
+      border:none;
+      display:block;
     }
   </style>
 </head>
