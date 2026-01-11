@@ -166,21 +166,36 @@ function generateCardPage(cardData) {
       background:transparent;
       overflow:hidden;
     }
-    iframe{
-      width:100%;
-      height:100%;
-      border:0;
-      display:block;
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+    .iframe-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    .iframe-container iframe {
+      position: absolute;
+      inset: 25px 0 0 0;          /* top 25px, left/right/bottom 0 */
+      margin: 0 auto;             /* centers horizontally */
+      max-width: 520px;           /* ← important: limit max width */
+      width: 100%;
+      height: calc(100% - 25px);  /* leave space for top padding */
     }
   </style>
 </head>
 <body>
+<div class="iframe-container">
   <iframe
     src="${liveCardUrl}"
     title="${escapeHtml(title)}"
     allow="clipboard-write"
     loading="eager"
   ></iframe>
+  </div>
 </body>
 </html>`;
 }
