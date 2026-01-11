@@ -171,11 +171,13 @@ function generateCardPage(cardData) {
       height: 100%;
       border: 0;
       display: block;
+      background: transparent !important;
     }
     .iframe-container {
       width: 100%;
       height: 100%;
       position: relative;
+      background: transparent !important;
     }
     .iframe-container iframe {
       position: absolute;
