@@ -158,47 +158,33 @@ function generateCardPage(cardData) {
 
   <link rel="icon" type="image/png" href="${escapeHtml(favicon)}">
 
-    <style>
-      *{margin:0;padding:0;box-sizing:border-box;}
-      html,body{
-        width:100%;
-        height:100%;
-        background:#f5f5f5;
-      }
-      body{
-        min-height:100vh;
-        display:flex;
-        justify-content:center; /* center left-to-right */
-        align-items:flex-start; /* do NOT vertical-center */
-        padding:25px 16px 16px;
-        overflow:auto;
-      }
-      .card-frame{
-        /* Fixed embed viewport (matches the in-app mobile viewport more closely)
-           Only scales DOWN on small screens; never scales up with page size. */
-        width:min(390px, calc(100vw - 32px));
-        height:min(844px, calc(100vh - 25px - 32px));
-        overflow:hidden;
-        background:#fff;
-        border-radius:24px;
-        box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);
-      }
-      iframe{
-        width:100%;
-        height:100%;
-        border:none;
-        display:block;
-      }
-      @media(max-width:420px){
-        body{padding:25px 0 0;}
-        .card-frame{
-          width:100%;
-          height:calc(100vh - 25px);
-          border-radius:0;
-          box-shadow:none;
-        }
-      }
-    </style>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html,body{width:100%;min-height:100%;background:#f5f5f5;}
+    body{
+      min-height:100vh;
+      display:flex;
+      justify-content:center; /* center left-to-right */
+      align-items:flex-start; /* top align */
+      padding-top:25px;       /* exact top margin requested */
+      overflow:auto;
+    }
+    .card-frame{
+      width:390px;  /* fixed embed size */
+      height:844px; /* fixed embed size */
+      overflow:hidden;
+      background:#fff;
+      border-radius:24px;
+      box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);
+      flex:0 0 auto;
+    }
+    iframe{
+      width:100%;
+      height:100%;
+      border:none;
+      display:block;
+    }
+  </style>
 </head>
 <body>
   <div class="card-frame">
@@ -334,3 +320,4 @@ build().catch((e) => {
   console.error(e);
   process.exit(1);
 });
+
