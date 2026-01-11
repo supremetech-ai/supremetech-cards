@@ -99,17 +99,40 @@ function generateCardPage(cardData) {
 
   <style>
     *{margin:0;padding:0;box-sizing:border-box;}
-    html,body{width:100%;height:100%;overflow:hidden;background:#000;}
+    html,body{
+      width:100%;
+      height:100%;
+      background:#f5f5f5;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+    .card-frame{
+      width:100%;
+      max-width:430px;
+      height:100%;
+      max-height:932px;
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);
+    }
     iframe{width:100%;height:100%;border:none;}
+    @media(max-width:460px){
+      html,body{padding:0;}
+      .card-frame{max-width:100%;max-height:100%;border-radius:0;box-shadow:none;}
+    }
   </style>
 </head>
 <body>
-  <iframe
-    src="${liveCardUrl}"
-    title="${escapeHtml(displayName)}'s Digital Card"
-    allow="clipboard-write"
-    loading="eager"
-  ></iframe>
+  <div class="card-frame">
+    <iframe
+      src="${liveCardUrl}"
+      title="${escapeHtml(displayName)}'s Digital Card"
+      allow="clipboard-write"
+      loading="eager"
+    ></iframe>
+  </div>
 </body>
 </html>`;
 }
