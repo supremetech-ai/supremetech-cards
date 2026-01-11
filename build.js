@@ -160,21 +160,11 @@ function generateCardPage(cardData) {
 
   <style>
     *{margin:0;padding:0;box-sizing:border-box;}
-    html,body{width:100%;min-height:100%;background:transparent;}
-    body{
-      min-height:100vh;
-      display:flex;
-      justify-content:center; /* center left-to-right */
-      align-items:flex-start; /* top align */
-      padding:25px 0 0;       /* exact 25px top margin */
-      overflow:auto;
-    }
-    /* Wrapper exists ONLY to size the iframe to the exact card canvas */
-    .card-frame{
-      width:360px;
-      height:640px;
+    html,body{
+      width:100%;
+      height:100%;
+      background:transparent;
       overflow:hidden;
-      flex:0 0 auto;
     }
     iframe{
       width:100%;
@@ -185,14 +175,12 @@ function generateCardPage(cardData) {
   </style>
 </head>
 <body>
-  <div class="card-frame">
-    <iframe
-      src="${liveCardUrl}"
-      title="${escapeHtml(title)}"
-      allow="clipboard-write"
-      loading="eager"
-    ></iframe>
-  </div>
+  <iframe
+    src="${liveCardUrl}"
+    title="${escapeHtml(title)}"
+    allow="clipboard-write"
+    loading="eager"
+  ></iframe>
 </body>
 </html>`;
 }
