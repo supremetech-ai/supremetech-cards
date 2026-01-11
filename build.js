@@ -160,28 +160,26 @@ function generateCardPage(cardData) {
 
   <style>
     *{margin:0;padding:0;box-sizing:border-box;}
-    html,body{width:100%;min-height:100%;background:#f5f5f5;}
+    html,body{width:100%;min-height:100%;background:transparent;}
     body{
       min-height:100vh;
       display:flex;
       justify-content:center; /* center left-to-right */
       align-items:flex-start; /* top align */
-      padding-top:25px;       /* exact top margin requested */
+      padding:25px 0 0;       /* exact 25px top margin */
       overflow:auto;
     }
+    /* Wrapper exists ONLY to size the iframe to the exact card canvas */
     .card-frame{
-      width:390px;  /* fixed embed size */
-      height:844px; /* fixed embed size */
+      width:360px;
+      height:640px;
       overflow:hidden;
-      background:#fff;
-      border-radius:24px;
-      box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);
       flex:0 0 auto;
     }
     iframe{
       width:100%;
       height:100%;
-      border:none;
+      border:0;
       display:block;
     }
   </style>
@@ -320,4 +318,3 @@ build().catch((e) => {
   console.error(e);
   process.exit(1);
 });
-
