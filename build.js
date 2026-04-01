@@ -158,37 +158,36 @@ function generateCardPage(cardData) {
 
   <link rel="icon" type="image/png" href="${escapeHtml(favicon)}">
 
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;}
-    html,body{
-      width:100%;
-      height:100%;
-      background:transparent;
-      overflow:hidden;
-    }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display: block;
-      background: transparent !important;
-    }
-    .iframe-container {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      background: transparent !important;
-    }
-    .iframe-container iframe {
-      position: absolute;
-      inset: 25px 0 0 0;          /* top 25px, left/right/bottom 0 */
-      margin: 0 auto;             /* centers horizontally */
-      max-width: 360px;           /* ← important: limit max width */
-      width: 100%;
-      height: calc(100% - 25px);  /* leave space for top padding */
-      background: transparent !important;
-    }
-  </style>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html, body {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    overflow: hidden;
+  }
+  .iframe-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    padding: 20px 10px;   /* optional: gives a little breathing room on all sides */
+  }
+  .iframe-container iframe {
+    width: 100%;
+    max-width: 360px;     /* keeps it mobile-card sized */
+    height: 100%;
+    border: 0;
+    display: block;
+    background: transparent;
+  }
+</style>
 </head>
 <body>
 <div class="iframe-container">
